@@ -3,7 +3,14 @@ name: Manual test
 on:
   workflow_dispatch:
 jobs:
-  run-every-2-mins:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build
+        run: |
+          echo "build s
+          sleep 5
+  deploy:
     runs-on: ubuntu-latest
     environment: production
     steps:

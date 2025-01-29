@@ -7,4 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Timestamp
-        run: echo "This workflow ran at $(date)"
+        run: |
+          echo "This workflow ran at $(date)"
+          sleep 10

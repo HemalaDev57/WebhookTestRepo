@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: build
         run: |
-          echo "build s
+          echo "build running..."
           sleep 5
   deploy:
     runs-on: ubuntu-latest

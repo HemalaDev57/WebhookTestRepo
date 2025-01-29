@@ -10,11 +10,21 @@ jobs:
         run: |
           echo "build running..."
           sleep 5
-  deploy:
+  deploy-stage:
+    runs-on: ubuntu-latest
+    environment: stage
+    steps:
+      - name: Print Timestamp
+        run: |
+          echo "Deploying in stage"
+          sleep 10
+          echo "This deployment ran at $(date)"
+  deploy-prod:
     runs-on: ubuntu-latest
     environment: production
     steps:
       - name: Print Timestamp
         run: |
-          echo "This workflow ran at $(date)"
+          echo "Deploying in Prod"
           sleep 10
+          echo "This deployment ran at $(date)"

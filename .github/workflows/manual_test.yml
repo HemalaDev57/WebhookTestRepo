@@ -5,6 +5,7 @@ on:
 jobs:
   run-every-2-mins:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Print Timestamp
         run: |

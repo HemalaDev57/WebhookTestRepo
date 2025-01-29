@@ -1,0 +1,10 @@
+name: Manual test
+
+on:
+  workflow_dispatch:
+jobs:
+  run-every-2-mins:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Timestamp
+        run: echo "This workflow ran at $(date)"

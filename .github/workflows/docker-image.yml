@@ -1,0 +1,51 @@
+name: Docker Build, Push, and Deploy
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build and Tag Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/go-docker-app:latest .
+
+      - name: Push Docker Image to Docker Hub
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/go-docker-app:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy Docker Image to Remote Server
+        run: |
+          ssh -o StrictHostKeyChecking=no user@your-server-ip << EOF
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/go-docker-app:latest
+            docker stop go-docker-app || true
+            docker rm go-docker-app || true
+            docker run -d --name go-docker-app -p 80:80 ${{ secrets.DOCKER_HUB_USERNAME }}/go-docker-app:latest
+          EOF

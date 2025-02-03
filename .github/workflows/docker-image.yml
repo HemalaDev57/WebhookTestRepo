@@ -43,9 +43,5 @@ jobs:
 
       - name: Deploy Docker Image to Remote Server
         run: |
-          ssh -o StrictHostKeyChecking=no user@192.168.1.4 << EOF
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/go-docker-app:latest
-            docker stop go-docker-app || true
-            docker rm go-docker-app || true
-            docker run -d --name go-docker-app -p 80:80 ${{ secrets.DOCKER_HUB_USERNAME }}/go-docker-app:latest
-          EOF
+            echo 'docker pulled successfully'

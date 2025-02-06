@@ -28,6 +28,6 @@ jobs:
                 "timestamp": "'$(date)'"
               }
             }' \
-            https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository }}/dispatches
+            https://api.github.com/repos/${{ github.repository }}/dispatches
           echo "Called the api"
         

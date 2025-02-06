@@ -1,4 +1,4 @@
-name: Manual test
+name: Repository event dispatch test
 
 on:
   workflow_dispatch:
@@ -15,6 +15,19 @@ jobs:
     steps:
       - name: Print Timestamp
         run: |
-          curl -X POST -H "Authorization: Bearer $REPO_DISPATCH_TOKEN" -H "Content-Type: application/json" -d '{"event_type": "custom-event","client_payload": {"data": "This is the payload data"}}' https://api.github.com/repos/HemalaDev57/WebhookTestRepo/dispatches
+          sleep 5
           echo "Calling the api"
-          sleep 10
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.REPO_DISPATCH_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "event_type": "custom-event",
+              "client_payload": {
+                "message": "Triggered from GitHub Actions",
+                "timestamp": "'$(date)'"
+              }
+            }' \
+            https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository }}/dispatches
+          echo "Called the api"
+        

@@ -1,0 +1,20 @@
+name: Manual test
+
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build
+        run: |
+          echo "build running..."
+          sleep 5
+  create-artifact-payload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Timestamp
+        run: |
+          curl -X POST -H "Authorization: Bearer $REPO_DISPATCH_TOKEN" -H "Content-Type: application/json" -d '{"event_type": "custom-event","client_payload": {"data": "This is the payload data"}}' https://api.github.com/repos/HemalaDev57/WebhookTestRepo/dispatches
+          echo "Calling the api"
+          sleep 10

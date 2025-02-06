@@ -17,7 +17,7 @@ jobs:
         run: |
           sleep 5
           echo "Calling the api"
-          curl -X POST \
+          response=$(curl -s -o response.json -w "%{http_code}" -X POST  \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer ${{ secrets.REPO_DISPATCH_TOKEN }}" \
             -H "Content-Type: application/json" \
@@ -28,6 +28,8 @@ jobs:
                 "timestamp": "${TIMESTAMP}"
               }
             }' \
-            https://api.github.com/repos/${{ github.repository }}/dispatches
+            https://api.github.com/repos/${{ github.repository }}/dispatches)
+          echo "GitHub API Response Code: $response"
+          cat response.json
           echo "Called the api"
         

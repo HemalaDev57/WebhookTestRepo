@@ -25,7 +25,7 @@ jobs:
               "event_type": "custom-event",
               "client_payload": {
                 "message": "Triggered from GitHub Actions",
-                "timestamp": "'$(date)'"
+                "timestamp": "${TIMESTAMP}"
               }
             }' \
             https://api.github.com/repos/${{ github.repository }}/dispatches

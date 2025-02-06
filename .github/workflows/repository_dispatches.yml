@@ -28,7 +28,7 @@ jobs:
                 "timestamp": "${TIMESTAMP}"
               }
             }' \
-            https://api.github.com/repos/${{ github.repository }}/dispatches)
+            https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository }}/dispatches)
           echo "GitHub API Response Code: $response"
           cat response.json
           echo "Called the api"

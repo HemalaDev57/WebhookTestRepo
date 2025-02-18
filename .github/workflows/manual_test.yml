@@ -9,7 +9,7 @@ jobs:
       - name: build
         run: |
           echo "build running..."
-          echo "Workflow File: $(basename $GITHUB_WORKFLOW_REF)"
+          echo "Workflow File: $(echo $GITHUB_WORKFLOW_REF | cut -d'/' -f4 | cut -d'@' -f1)"
           echo $(basename $GITHUB_WORKFLOW_REF)
           echo $GITHUB_WORKFLOW_REF
           sleep 5

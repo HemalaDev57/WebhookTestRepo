@@ -9,6 +9,9 @@ jobs:
       - name: build
         run: |
           echo "build running..."
+          echo "Workflow File: $(basename $GITHUB_WORKFLOW_REF)"
+          echo $(basename $GITHUB_WORKFLOW_REF)
+          echo $GITHUB_WORKFLOW_REF
           sleep 5
   deploy-stage:
     runs-on: ubuntu-latest
@@ -28,4 +31,4 @@ jobs:
           echo "Deploying in Prod"
           sleep 10
           echo "This deployment ran at $(date)"
-          echo $(basename $GITHUB_WORKFLOW_REF)
+          

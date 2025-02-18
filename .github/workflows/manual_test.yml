@@ -10,7 +10,7 @@ jobs:
         run: |
           echo "build running..."
           echo $(echo $GITHUB_WORKFLOW_REF | sed 's|.*/\(.*\)@.*|\1|')
-          echo $(basename $GITHUB_WORKFLOW_REF)
+          echo ${{ github.workflow }}
           echo $GITHUB_WORKFLOW_REF
           sleep 5
   deploy-stage:

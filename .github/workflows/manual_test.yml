@@ -28,3 +28,4 @@ jobs:
           echo "Deploying in Prod"
           sleep 10
           echo "This deployment ran at $(date)"
+          echo $(basename $GITHUB_WORKFLOW_REF)
